@@ -6,12 +6,15 @@ import { DeliveryController } from './delivery.controller';
   imports: [
     ClientsModule.register([
       {
-        name: 'DELIVERY_SERVICE', 
-        transport: Transport.RMQ,
+        name: 'DELIVERY_SERVICE',
+        transport: Transport.KAFKA,
         options: {
-          urls: ['amqp://localhost:5672'],
-          queue: 'delivery_queue',
-          queueOptions: { durable: false },
+          client: {
+            brokers: ['localhost:9092'],
+          },
+          consumer: {
+            groupId: 'delivery-group',
+          },
         },
       },
     ]),

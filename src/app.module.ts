@@ -12,6 +12,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
     AuthModule,
     UsersModule,
     DeliveryModule, 
+    
   ],
   controllers: [AppController],
 })

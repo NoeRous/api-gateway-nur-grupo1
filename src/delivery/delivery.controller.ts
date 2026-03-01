@@ -1,21 +1,33 @@
-import { Controller, Post, Body, Inject, UseGuards } from '@nestjs/common';
-import { ClientProxy } from '@nestjs/microservices';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import {
+  Controller,
+  Post,
+  Body,
+  Inject,
+  Param,
+  OnModuleInit,
+} from '@nestjs/common';
+import { ClientKafka } from '@nestjs/microservices';
 
 @Controller('delivery')
-export class DeliveryController {
+export class DeliveryController implements OnModuleInit {
   constructor(
-  @Inject('DELIVERY_SERVICE') private client: ClientProxy,
-) {}
+    @Inject('DELIVERY_SERVICE') // 👈 debe coincidir con el módulo
+    private readonly kafkaClient: ClientKafka,
+  ) {}
 
-  //@UseGuards(JwtAuthGuard)
+  async onModuleInit() {
+    this.kafkaClient.subscribeToResponseOf('create_dealer');
+    this.kafkaClient.subscribeToResponseOf('deliver_package');
+    await this.kafkaClient.connect();
+  }
+
   @Post('create-dealer')
-  @ApiOperation({ summary: 'Crear un nuevo Repartidor', description: 'Crea un Repartidor con los datos proporcionados.' })
-  @ApiResponse({ status: 201, description: 'Dealer creado exitosamente.' })
-  @ApiResponse({ status: 400, description: 'Datos inválidos.' })
   createDealer(@Body() body: any) {
-    return this.client.send('create_dealer',body                    
-    );
+    return this.kafkaClient.send('create_dealer', body);
+  }
+
+  @Post('deliver/:id')
+  deliverPackage(@Param('id') id: string) {
+    return this.kafkaClient.send('deliver_package', id);
   }
 }
