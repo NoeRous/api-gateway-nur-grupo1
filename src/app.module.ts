@@ -5,14 +5,15 @@ import { DeliveryModule } from './delivery/delivery.module';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { AdviceModule } from './advice/advice.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     AuthModule,
     UsersModule,
-    DeliveryModule, 
-    
+    DeliveryModule,
+    AdviceModule
   ],
   controllers: [AppController],
 })
