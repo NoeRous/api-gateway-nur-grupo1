@@ -1,28 +1,28 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { DeliveryController } from './delivery.controller';
+import { ProductionController } from './production.controller';
 
 @Module({
   imports: [
     ClientsModule.register([
       {
-        name: 'DELIVERY_SERVICE',
+        name: 'PRODUCTION_SERVICE',
         transport: Transport.KAFKA,
         options: {
           client: {
             brokers: ['localhost:9092'],
           },
           consumer: {
-            groupId: 'delivery-gateway-client',
+            groupId: 'production-gateway-client',
             allowAutoTopicCreation: true,
           },
-           producer: {
+          producer: {
             allowAutoTopicCreation: true,
           },
         },
       },
     ]),
   ],
-  controllers: [DeliveryController],
+  controllers: [ProductionController],
 })
-export class DeliveryModule {}
+export class ProductionModule {}

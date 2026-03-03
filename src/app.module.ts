@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { AdviceModule } from './advice/advice.module';
+import { ProductionModule } from './production/production.module';
 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import { AdviceModule } from './advice/advice.module';
     AuthModule,
     UsersModule,
     DeliveryModule,
-    AdviceModule
+    AdviceModule,
+    ProductionModule
   ],
   controllers: [AppController],
 })
