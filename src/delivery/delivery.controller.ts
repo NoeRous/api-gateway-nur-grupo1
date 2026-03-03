@@ -5,9 +5,12 @@ import {
   Inject,
   Param,
   OnModuleInit,
+  UseGuards,
 } from '@nestjs/common';
 import { ClientKafka } from '@nestjs/microservices';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('delivery')
 export class DeliveryController implements OnModuleInit {
   constructor(
