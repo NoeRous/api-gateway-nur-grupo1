@@ -10,7 +10,7 @@ import { ProductionController } from './production.controller';
         transport: Transport.KAFKA,
         options: {
           client: {
-            brokers: ['localhost:9092'],
+            brokers: ['kafka:9092'],
           },
           consumer: {
             groupId: 'production-gateway-client',
