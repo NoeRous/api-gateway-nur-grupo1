@@ -6,6 +6,11 @@ import { AuthService } from './auth/auth.service';
 export class AppController {
   constructor(private authService: AuthService) {}
 
+  @Get('health')
+  health() {
+    return { status: 'ok', timestamp: new Date().toISOString() };
+  }
+
   @Post('login')
   async login(@Body() body: any) {
     const user = { userId: 1, username: body.username };

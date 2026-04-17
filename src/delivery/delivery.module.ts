@@ -16,7 +16,7 @@ import { DeliveryController } from './delivery.controller';
             groupId: 'delivery-gateway-client',
             allowAutoTopicCreation: true,
           },
-           producer: {
+          producer: {
             allowAutoTopicCreation: true,
           },
         },

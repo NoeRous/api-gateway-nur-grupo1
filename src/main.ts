@@ -17,12 +17,11 @@ async function bootstrap() {
     .setTitle('API Gateway')
     .setDescription('Documentación del API Gateway')
     .setVersion('1.0')
-    .addBearerAuth() 
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
-
 
   await app.startAllMicroservices();
   await app.listen(4000);

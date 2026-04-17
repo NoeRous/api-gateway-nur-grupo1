@@ -15,7 +15,7 @@ import { ProductionModule } from './production/production.module';
     UsersModule,
     DeliveryModule,
     AdviceModule,
-    ProductionModule
+    ProductionModule,
   ],
   controllers: [AppController],
 })

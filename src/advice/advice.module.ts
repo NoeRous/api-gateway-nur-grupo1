@@ -1,20 +1,19 @@
-import { Module } from "@nestjs/common";
-import { AdviceController } from "./advice.controller";
-import { ClientsModule, Transport } from "@nestjs/microservices";
-
+import { Module } from '@nestjs/common';
+import { AdviceController } from './advice.controller';
+import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
   imports: [
     ClientsModule.register([
       {
-        name: "ADVICE_SERVICE",
+        name: 'ADVICE_SERVICE',
         transport: Transport.KAFKA,
         options: {
           client: {
-            brokers: ["kafka:9092"],
+            brokers: ['kafka:9092'],
           },
           consumer: {
-            groupId: "advice-group",
+            groupId: 'advice-group',
           },
         },
       },

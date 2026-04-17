@@ -27,5 +27,4 @@ export class ProductionController implements OnModuleInit {
   createDealer(@Body() body: any) {
     return this.kafkaClient.send('create_package', body);
   }
-
 }
