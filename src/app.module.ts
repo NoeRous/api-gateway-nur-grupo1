@@ -1,10 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
 import { DeliveryModule } from './delivery/delivery.module';
 import { ConfigModule } from '@nestjs/config';
-import { AppController } from './app.controller';
-import { ClientsModule, Transport } from '@nestjs/microservices';
 import { AdviceModule } from './advice/advice.module';
 import { ProductionModule } from './production/production.module';
 
@@ -12,11 +9,10 @@ import { ProductionModule } from './production/production.module';
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     AuthModule,
-    UsersModule,
-    DeliveryModule,
-    AdviceModule,
-    ProductionModule,
+    // DeliveryModule,
+    // AdviceModule,
+    // ProductionModule,
   ],
-  controllers: [AppController],
+  controllers: [],
 })
 export class AppModule {}

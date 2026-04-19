@@ -1,17 +1,15 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { ConfigModule } from '@nestjs/config';
-import { Transport, MicroserviceOptions } from '@nestjs/microservices';
-import { ConfigService } from '@nestjs/config';
-
-ConfigModule.forRoot(); // Load .env file
+import { JwtAuthGuard } from './auth/jwt-auth.guard';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const configService = app.get(ConfigService);
 
+  const jwtAuthGuard = app.get(JwtAuthGuard);
   app.setGlobalPrefix('api');
+  app.enableCors();
+  app.useGlobalGuards(jwtAuthGuard);
 
   const config = new DocumentBuilder()
     .setTitle('API Gateway')
@@ -22,6 +20,7 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
+
 
   await app.startAllMicroservices();
   await app.listen(4000);
