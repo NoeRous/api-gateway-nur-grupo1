@@ -26,6 +26,7 @@ export class AuthProxyService {
       );
       return response.data;
     } catch (error: any) {
+      console.log("error", error)
       if (error.response) {
         throw new HttpException(
           error.response.data || 'Error en el servicio de autenticación',
