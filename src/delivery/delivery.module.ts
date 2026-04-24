@@ -10,7 +10,7 @@ import { DeliveryController } from './delivery.controller';
         transport: Transport.KAFKA,
         options: {
           client: {
-            brokers: ['kafka:9092'],
+            brokers: [process.env.KAFKA_BROKER || 'localhost:29092'],
           },
           consumer: {
             groupId: 'delivery-gateway-client',

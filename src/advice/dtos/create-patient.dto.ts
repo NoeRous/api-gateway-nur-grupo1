@@ -67,4 +67,8 @@ export class CreatePatientDto {
 
   @IsEnum(BodyComposition)
   bodyComposition: BodyComposition;
+
+  @IsString()
+  @IsNotEmpty()
+  objective: string;
 }
