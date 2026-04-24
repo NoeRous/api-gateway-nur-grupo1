@@ -9,9 +9,9 @@ import { ProductionModule } from './production/production.module';
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     AuthModule,
-    // DeliveryModule,
+    DeliveryModule,
     // AdviceModule,
-    // ProductionModule,
+    ProductionModule,
   ],
   controllers: [],
 })

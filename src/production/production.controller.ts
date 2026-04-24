@@ -6,6 +6,7 @@ import {
   Param,
   OnModuleInit,
   UseGuards,
+  Get,
 } from '@nestjs/common';
 import { ClientKafka } from '@nestjs/microservices';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
@@ -20,11 +21,17 @@ export class ProductionController implements OnModuleInit {
 
   async onModuleInit() {
     this.kafkaClient.subscribeToResponseOf('create_package');
+    this.kafkaClient.subscribeToResponseOf('production.orders.findAll');
     await this.kafkaClient.connect();
   }
 
   @Post('create-package-for-delivery')
-  createDealer(@Body() body: any) {
+  createPackage(@Body() body: any) {
     return this.kafkaClient.send('create_package', body);
+  }
+
+  @Get('orders')
+  getOrders() {
+    return this.kafkaClient.send('production.orders.findAll', {});
   }
 }

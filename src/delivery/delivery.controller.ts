@@ -1,6 +1,7 @@
 import {
   Controller,
   Post,
+  Get,
   Body,
   Inject,
   Param,
@@ -26,6 +27,7 @@ export class DeliveryController implements OnModuleInit {
     this.kafkaClient.subscribeToResponseOf('get_confirmed_deliveries_by_date');
     this.kafkaClient.subscribeToResponseOf('assign_package');
     this.kafkaClient.subscribeToResponseOf('deliver_package');
+    this.kafkaClient.subscribeToResponseOf('get_all_dealers');
     await this.kafkaClient.connect();
   }
 
@@ -57,5 +59,10 @@ export class DeliveryController implements OnModuleInit {
   @Post('deliver/:id')
   deliverPackage(@Param('id') id: string) {
     return this.kafkaClient.send('deliver_package', id);
+  }
+
+  @Get('dealers')
+  getAllDealers() {
+    return this.kafkaClient.send('get_all_dealers', {});
   }
 }
