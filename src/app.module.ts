@@ -10,7 +10,7 @@ import { ProductionModule } from './production/production.module';
     ConfigModule.forRoot({ isGlobal: true }),
     AuthModule,
     DeliveryModule,
-    // AdviceModule,
+    AdviceModule,
     ProductionModule,
   ],
   controllers: [],
